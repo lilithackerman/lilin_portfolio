@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>分镜故事板模板 · Storyboard</title>
+<style>
+  :root{
+    --bg:#f4faf4;
+    --card:#ffffff;
+    --line:#9cc7a4;
+    --line-soft:#d7e9db;
+    --ink:#33523c;
+    --ink-soft:#688a71;
+    --accent:#5d9c6d;
+    --tag:#eef6ef;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{background:var(--bg);}
+  body{
+    font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+    color:var(--ink);
+    padding:28px 20px 48px;
+    line-height:1.5;
+  }
+  .sheet{max-width:1080px;margin:0 auto;}
+
+  /* ===== 顶部信息栏 ===== */
+  .head{
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:18px;
+    padding:20px 22px 16px;
+    box-shadow:0 4px 14px rgba(93,156,109,.10);
+  }
+  .head-top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;}
+  .title{font-size:24px;font-weight:700;letter-spacing:2px;color:var(--ink);}
+  .title small{display:block;font-size:12px;font-weight:400;letter-spacing:3px;color:var(--ink-soft);margin-top:2px;}
+  .head-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 22px;margin-top:16px;}
+  .field{display:flex;align-items:baseline;gap:8px;font-size:13px;}
+  .field label{color:var(--ink-soft);white-space:nowrap;min-width:64px;}
+  .field .blank{flex:1;border-bottom:1px dashed var(--line);min-height:20px;}
+  .field .blank[contenteditable="true"]:focus{outline:none;border-bottom-color:var(--accent);}
+
+  /* ===== 图例 ===== */
+  .legend{
+    display:flex;flex-wrap:wrap;gap:10px 26px;
+    margin-top:14px;padding-top:12px;border-top:1px solid var(--line-soft);
+    font-size:12px;color:var(--ink-soft);
+  }
+  .legend .group{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
+  .legend b{color:var(--accent);font-weight:600;}
+  .legend code{
+    background:var(--tag);border:1px solid var(--line-soft);border-radius:6px;
+    padding:1px 6px;font-size:11px;color:var(--ink);
+  }
+
+  /* ===== 分镜格 ===== */
+  .board{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px;}
+  .cell{
+    background:var(--card);
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+    break-inside:avoid;
+    display:flex;flex-direction:column;
+  }
+  .cell-head{
+    display:flex;align-items:center;gap:12px;
+    padding:10px 14px;border-bottom:1px solid var(--line-soft);
+    background:var(--tag);
+  }
+  .shot-no{
+    font-size:15px;font-weight:700;color:var(--accent);
+    background:#fff;border:1.5px solid var(--line);border-radius:10px;
+    padding:3px 12px;white-space:nowrap;
+  }
+  .cell-head .mini{display:flex;gap:14px;font-size:12px;color:var(--ink-soft);flex-wrap:wrap;}
+  .cell-head .mini span{display:flex;gap:5px;align-items:baseline;}
+  .cell-head .mini .blank{border-bottom:1px dashed var(--line);min-width:48px;min-height:16px;}
+
+  .frame{
+    position:relative;margin:14px 14px 0;aspect-ratio:16/9;
+    border:1.5px solid var(--line);border-radius:12px;
+    background:
+      linear-gradient(to right,transparent calc(50% - .5px),var(--line-soft) calc(50% - .5px),var(--line-soft) calc(50% + .5px),transparent calc(50% + .5px)),
+      linear-gradient(to bottom,transparent calc(50% - .5px),var(--line-soft) calc(50% - .5px),var(--line-soft) calc(50% + .5px),transparent calc(50% + .5px)),
+      #fcfefc;
+  }
+  .frame .hint{
+    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-size:12px;color:#b9d4bf;letter-spacing:2px;pointer-events:none;
+  }
+  .frame[contenteditable="true"]:focus{outline:none;border-color:var(--accent);}
+
+  .rows{padding:12px 14px 14px;display:flex;flex-direction:column;gap:10px;}
+  .row{display:flex;gap:10px;font-size:12.5px;}
+  .row .lab{
+    flex:0 0 76px;color:var(--ink-soft);font-weight:600;padding-top:2px;
+  }
+  .row .lines{flex:1;display:flex;flex-direction:column;gap:8px;}
+  .line{border-bottom:1px dashed var(--line-soft);min-height:18px;}
+  .row .line[contenteditable="true"]:focus{outline:none;border-bottom-color:var(--accent);}
+  .row.two{gap:18px;}
+  .row.two .col{flex:1;display:flex;gap:8px;}
+  .row.two .col .lab{flex:0 0 56px;}
+
+  /* ===== 页脚 ===== */
+  .foot{margin-top:18px;display:flex;justify-content:space-between;font-size:12px;color:var(--ink-soft);padding:0 6px;}
+
+  /* ===== 打印 ===== */
+  @media print{
+    body{background:#fff;padding:0;}
+    .sheet{max-width:none;}
+    .head,.cell{box-shadow:none;}
+    .board{gap:12px;}
+    @page{size:A4;margin:12mm;}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- 顶部信息 -->
+  <header class="head">
+    <div class="head-top">
+      <div class="title">分镜故事板<small>STORYBOARD TEMPLATE</small></div>
+      <div class="field" style="min-width:180px;">
+        <label>页码</label>
+        <div class="blank" contenteditable="true"></div>
+      </div>
+    </div>
+
+    <div class="head-meta">
+      <div class="field"><label>作品 / 项目</label><div class="blank" contenteditable="true"></div></div>
+      <div class="field"><label>编剧 / 分镜师</label><div class="blank" contenteditable="true"></div></div>
+      <div class="field"><label>日期</label><div class="blank" contenteditable="true"></div></div>
+      <div class="field"><label>画幅比例</label><div class="blank" contenteditable="true"></div></div>
+      <div class="field"><label>总镜数</label><div class="blank" contenteditable="true"></div></div>
+      <div class="field"><label>版本 / 备注</label><div class="blank" contenteditable="true"></div></div>
+    </div>
+
+    <div class="legend">
+      <div class="group"><b>景别</b>
+        <code>ELS 大远景</code><code>LS 全景</code><code>MS 中景</code><code>CU 近景</code><code>ECU 特写</code>
+      </div>
+      <div class="group"><b>运镜</b>
+        <code>固定</code><code>推</code><code>拉</code><code>摇</code><code>移</code><code>跟</code><code>升降</code><code>环绕</code>
+      </div>
+    </div>
+  </header>
+
+  <!-- 分镜格：复制 .cell 即可增加镜号 -->
+  <main class="board" id="board">
+
+    <section class="cell">
+      <div class="cell-head">
+        <div class="shot-no">No. 01</div>
+        <div class="mini">
+          <span>景别 <div class="blank" contenteditable="true"></div></span>
+          <span>运镜 <div class="blank" contenteditable="true"></div></span>
+          <span>时长 <div class="blank" contenteditable="true"></div>s</span>
+        </div>
+      </div>
+      <div class="frame" contenteditable="true"><div class="hint">画面 · 构图</div></div>
+      <div class="rows">
+        <div class="row"><div class="lab">画面 / 动作</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row"><div class="lab">台词 / 旁白</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row two">
+          <div class="col"><div class="lab">音效 / 配乐</div><div class="line" contenteditable="true"></div></div>
+          <div class="col"><div class="lab">备注</div><div class="line" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell">
+      <div class="cell-head">
+        <div class="shot-no">No. 02</div>
+        <div class="mini">
+          <span>景别 <div class="blank" contenteditable="true"></div></span>
+          <span>运镜 <div class="blank" contenteditable="true"></div></span>
+          <span>时长 <div class="blank" contenteditable="true"></div>s</span>
+        </div>
+      </div>
+      <div class="frame" contenteditable="true"><div class="hint">画面 · 构图</div></div>
+      <div class="rows">
+        <div class="row"><div class="lab">画面 / 动作</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row"><div class="lab">台词 / 旁白</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row two">
+          <div class="col"><div class="lab">音效 / 配乐</div><div class="line" contenteditable="true"></div></div>
+          <div class="col"><div class="lab">备注</div><div class="line" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell">
+      <div class="cell-head">
+        <div class="shot-no">No. 03</div>
+        <div class="mini">
+          <span>景别 <div class="blank" contenteditable="true"></div></span>
+          <span>运镜 <div class="blank" contenteditable="true"></div></span>
+          <span>时长 <div class="blank" contenteditable="true"></div>s</span>
+        </div>
+      </div>
+      <div class="frame" contenteditable="true"><div class="hint">画面 · 构图</div></div>
+      <div class="rows">
+        <div class="row"><div class="lab">画面 / 动作</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row"><div class="lab">台词 / 旁白</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row two">
+          <div class="col"><div class="lab">音效 / 配乐</div><div class="line" contenteditable="true"></div></div>
+          <div class="col"><div class="lab">备注</div><div class="line" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell">
+      <div class="cell-head">
+        <div class="shot-no">No. 04</div>
+        <div class="mini">
+          <span>景别 <div class="blank" contenteditable="true"></div></span>
+          <span>运镜 <div class="blank" contenteditable="true"></div></span>
+          <span>时长 <div class="blank" contenteditable="true"></div>s</span>
+        </div>
+      </div>
+      <div class="frame" contenteditable="true"><div class="hint">画面 · 构图</div></div>
+      <div class="rows">
+        <div class="row"><div class="lab">画面 / 动作</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row"><div class="lab">台词 / 旁白</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row two">
+          <div class="col"><div class="lab">音效 / 配乐</div><div class="line" contenteditable="true"></div></div>
+          <div class="col"><div class="lab">备注</div><div class="line" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell">
+      <div class="cell-head">
+        <div class="shot-no">No. 05</div>
+        <div class="mini">
+          <span>景别 <div class="blank" contenteditable="true"></div></span>
+          <span>运镜 <div class="blank" contenteditable="true"></div></span>
+          <span>时长 <div class="blank" contenteditable="true"></div>s</span>
+        </div>
+      </div>
+      <div class="frame" contenteditable="true"><div class="hint">画面 · 构图</div></div>
+      <div class="rows">
+        <div class="row"><div class="lab">画面 / 动作</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row"><div class="lab">台词 / 旁白</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row two">
+          <div class="col"><div class="lab">音效 / 配乐</div><div class="line" contenteditable="true"></div></div>
+          <div class="col"><div class="lab">备注</div><div class="line" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell">
+      <div class="cell-head">
+        <div class="shot-no">No. 06</div>
+        <div class="mini">
+          <span>景别 <div class="blank" contenteditable="true"></div></span>
+          <span>运镜 <div class="blank" contenteditable="true"></div></span>
+          <span>时长 <div class="blank" contenteditable="true"></div>s</span>
+        </div>
+      </div>
+      <div class="frame" contenteditable="true"><div class="hint">画面 · 构图</div></div>
+      <div class="rows">
+        <div class="row"><div class="lab">画面 / 动作</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row"><div class="lab">台词 / 旁白</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row two">
+          <div class="col"><div class="lab">音效 / 配乐</div><div class="line" contenteditable="true"></div></div>
+          <div class="col"><div class="lab">备注</div><div class="line" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell">
+      <div class="cell-head">
+        <div class="shot-no">No. 07</div>
+        <div class="mini">
+          <span>景别 <div class="blank" contenteditable="true"></div></span>
+          <span>运镜 <div class="blank" contenteditable="true"></div></span>
+          <span>时长 <div class="blank" contenteditable="true"></div>s</span>
+        </div>
+      </div>
+      <div class="frame" contenteditable="true"><div class="hint">画面 · 构图</div></div>
+      <div class="rows">
+        <div class="row"><div class="lab">画面 / 动作</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row"><div class="lab">台词 / 旁白</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row two">
+          <div class="col"><div class="lab">音效 / 配乐</div><div class="line" contenteditable="true"></div></div>
+          <div class="col"><div class="lab">备注</div><div class="line" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cell">
+      <div class="cell-head">
+        <div class="shot-no">No. 08</div>
+        <div class="mini">
+          <span>景别 <div class="blank" contenteditable="true"></div></span>
+          <span>运镜 <div class="blank" contenteditable="true"></div></span>
+          <span>时长 <div class="blank" contenteditable="true"></div>s</span>
+        </div>
+      </div>
+      <div class="frame" contenteditable="true"><div class="hint">画面 · 构图</div></div>
+      <div class="rows">
+        <div class="row"><div class="lab">画面 / 动作</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row"><div class="lab">台词 / 旁白</div><div class="lines"><div class="line" contenteditable="true"></div><div class="line" contenteditable="true"></div></div></div>
+        <div class="row two">
+          <div class="col"><div class="lab">音效 / 配乐</div><div class="line" contenteditable="true"></div></div>
+          <div class="col"><div class="lab">备注</div><div class="line" contenteditable="true"></div></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="foot">
+    <span>提示：复制任一镜号卡片可新增分镜；浏览器打印可选 A4 纵向。</span>
+    <span>STORYBOARD</span>
+  </footer>
+</div>
+</body>
+</html>
