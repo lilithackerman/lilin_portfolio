@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Portfolio · Dopamine Collage Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+
+  <div class="blob b1"></div>
+  <div class="blob b2"></div>
+  <div class="blob b3"></div>
+  <div class="blob b4"></div>
+
+  <!-- 导航 -->
+  <nav class="navbar" id="navbar">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+      <span class="font-black text-lg"
+        style="background:linear-gradient(90deg,#FF7AA8,#9DE7C7,#7FB3FF);-webkit-background-clip:text;color:transparent">
+        My Portfolio
+      </span>
+
+      <button class="lang-toggle" id="langToggle" onclick="toggleLanguage()">
+        <span id="langLabelZh">中文</span>
+        <span>/</span>
+        <span id="langLabelEn" class="lang-active">EN</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- 首屏封面 -->
+  <section class="hero-section relative">
+    <div class="max-w-4xl mx-auto reveal hero-collage">
+
+      <div class="hero-note" data-i18n="heroNote">✨ Welcome to my creative space</div>
+      <div class="tape blue hero-tag-1">ANIMATION</div>
+      <div class="tape mint hero-tag-2">GAME DESIGN</div>
+
+      <div class="text-center">
+        <h1 class="text-6xl md:text-8xl font-black leading-none"
+          style="background:linear-gradient(90deg,#FF7AA8,#9DE7C7,#7FB3FF);-webkit-background-clip:text;color:transparent">
+          Portfolio
+        </h1>
+        <p class="text-lg mt-8 max-w-xl mx-auto" style="color:var(--soft)" data-i18n="heroDesc">
+          I turn weird and lovely ideas into tangible works with visuals, interaction and playable prototypes.
+        </p>
+        <div class="mt-10 flex justify-center gap-4">
+          <a href="#works" class="sticker"
+            style="background:linear-gradient(135deg,#FFB3D1,#B7DCFF);color:#fff;border-color:#fff"
+            data-i18n="enterWorks">View Works →</a>
+          <a href="#about" class="sticker" data-i18n="aboutMe">About Me</a>
+        </div>
+      </div>
+
+      <div class="confetti" style="top:20px;left:6%;animation-delay:-2s"></div>
+      <div class="confetti" style="top:80px;right:8%;background:#B7DCFF;animation-delay:-5s"></div>
+      <div class="confetti" style="bottom:10px;left:30%;background:#9DE7C7;animation-delay:-7s"></div>
+
+      <div class="paper-slip" style="top:40px;right:-20px;transform:rotate(7deg)">NEW</div>
+      <div class="paper-slip" style="bottom:20px;left:-40px;transform:rotate(-5deg)">COLLAGE</div>
+
+      <div class="emoji-sticker" style="top:10px;left:4%;transform:rotate(-10deg)">🎨</div>
+      <div class="emoji-sticker" style="bottom:30px;right:6%;transform:rotate(12deg)">✂️</div>
+    </div>
+  </section>
+
+  <!-- 作品集 -->
+  <section id="works" class="relative py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <div class="reveal inline-block relative">
+        <h2 class="section-title text-3xl" data-i18n="worksTitle">Works</h2>
+        <span class="title-doodle">★</span>
+        <p class="mt-6" style="color:var(--soft)" data-i18n="worksDesc">Browse animation, design and game projects by
+          category</p>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mt-10 reveal">
+        <button class="tab-btn active px-5 py-3 rounded-full font-bold" data-tab="all" data-i18n="all">All</button>
+        <button class="tab-btn px-5 py-3 rounded-full font-bold" data-tab="ani" data-i18n="animation">Animation</button>
+        <button class="tab-btn px-5 py-3 rounded-full font-bold" data-tab="design" data-i18n="design">Design</button>
+        <button class="tab-btn px-5 py-3 rounded-full font-bold" data-tab="game" data-i18n="game">Game</button>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+
+        <div class="work-card pink-card reveal" data-type="ani" onclick="openAniPage()">
+          <div class="pin card-pin-1"></div>
+          <div class="tape card-tape-1" data-i18n="animation">Animation</div>
+          <div class="corner-mark tl"></div>
+          <div class="cover g-pink">
+            <span class="sticker">🎬 Animation</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-black text-lg">Original Animation Short #01</h3>
+            <p class="text-sm mt-2" style="color:var(--soft)">A 2D narrative short about dreams and encounters.</p>
+            <div class="flex gap-2 mt-4">
+              <span class="tag" style="font-size:11px;padding:6px 10px">2D Animation</span>
+              <span class="tag" style="font-size:11px;padding:6px 10px">Narrative</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card blue-card reveal" data-type="design" onclick="openDesignDrawer()">
+          <div class="pin card-pin-2"></div>
+          <div class="tape blue card-tape-2">DESIGN</div>
+          <div class="corner-mark br"></div>
+          <div class="cover g-blue">
+            <span class="sticker">🎨 Design</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-black text-lg">Visual Poster Design</h3>
+            <p class="text-sm mt-2" style="color:var(--soft)">Fresh healing poster design with thoughtful color rhythm
+              and spacing.</p>
+            <div class="flex gap-2 mt-4">
+              <span class="tag" style="font-size:11px;padding:6px 10px">Poster</span>
+              <span class="tag" style="font-size:11px;padding:6px 10px">Visual</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="work-card mint-card reveal" data-type="game" onclick="openGamePage()">
+          <div class="pin card-pin-1"></div>
+          <div class="tape mint card-tape-1">GAME</div>
+          <div class="cover g-mint">
+            <span class="sticker">🎮 Game</span>
+          </div>
+          <div class="p-5">
+            <h3 class="font-black text-lg">Indie Game Demo</h3>
+            <p class="text-sm mt-2" style="color:var(--soft)">Light healing game prototype with AI-assisted asset
+              pipeline.</p>
+            <div class="flex gap-2 mt-4">
+              <span class="tag" style="font-size:11px;padding:6px 10px">Indie Game</span>
+              <span class="tag" style="font-size:11px;padding:6px 10px">AI Assisted</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 正在开发 -->
+  <section id="wip" class="relative py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="section-title text-3xl reveal" data-i18n="wipTitle">WIP</h2>
+      <p class="mt-6 reveal" style="color:var(--soft)" data-i18n="wipDesc">Experimental projects and demos in iteration
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
+        <div class="workflow reveal paper torn-edge">
+          <div class="pin" style="top:-10px;left:30px"></div>
+          <div class="tape" style="top:12px;right:20px;transform:rotate(4deg)">WIP</div>
+          <div class="tape-cluster" style="top:40px;left:16px">
+            <span class="tape pink">PROTOTYPE</span>
+            <span class="tape blue">AI</span>
+          </div>
+          <div class="cover g-yellow rounded-2xl" style="height:200px"></div>
+          <h3 class="font-black text-lg mt-5">New Demo · Narrative Interaction Experiment</h3>
+          <p class="text-sm mt-2" style="color:var(--soft)">Exploring dialogue, scene switching and light story
+            progression.</p>
+          <div class="progress mt-5"><span style="width:60%"></span></div>
+          <p class="text-xs mt-3" style="color:var(--soft)">Progress 60% · Restructuring interaction</p>
+        </div>
+
+        <div class="workflow reveal paper torn-edge">
+          <div class="pin" style="top:-10px;right:30px"></div>
+          <div class="tape blue" style="top:14px;left:20px;transform:rotate(-3deg)">AI TEST</div>
+          <div class="cover g-purple rounded-2xl" style="height:200px"></div>
+          <h3 class="font-black text-lg mt-5">AI Asset Workflow Tool Test</h3>
+          <p class="text-sm mt-2" style="color:var(--soft)">Integrate AI generation into character, scene and sound
+            production pipeline.</p>
+          <div class="progress mt-5"><span style="width:40%"></span></div>
+          <p class="text-xs mt-3" style="color:var(--soft)">Progress 40% · Feature iteration</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 关于我（点击弹出侧边抽屉） -->
+  <section id="about" class="relative py-24 px-6">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="section-title text-3xl reveal" data-i18n="aboutTitle">About</h2>
+
+      <div class="mt-12">
+        <div class="workflow reveal paper cursor-pointer" id="aboutCard" onclick="openAboutDrawer()">
+          <div class="pin" style="top:-10px;left:40px"></div>
+          <div class="tape pink" style="top:16px;right:24px;transform:rotate(5deg)">ME</div>
+          <span class="click-hint" data-i18n="clickOpen">Click to open →</span>
+
+          <div class="flex flex-col md:flex-row gap-6 items-center">
+            <div class="polaroid" style="width:200px;transform:rotate(-4deg)">
+              <div class="cover g-pink rounded-xl" style="height:180px"></div>
+              <div class="polaroid-caption">Hello!</div>
+            </div>
+
+            <div class="flex-1 text-center md:text-left">
+              <h3 class="font-black text-xl" data-i18n="basicInfo">Basic Info</h3>
+              <p class="text-sm mt-3" style="color:var(--soft)" data-i18n="introText">
+                Independent creator & indie game developer, focusing on animation, visual design and lightweight
+                interactive prototypes. I love turning complex ideas into cute, clear and playable works.
+              </p>
+
+              <div class="mt-5 space-y-2 text-sm font-bold">
+                <p data-i18n="location">📍 Location: Remote</p>
+                <p data-i18n="status">💼 Status: Open for collaboration & project discussion</p>
+                <p data-i18n="direction">🎯 Focus: Original content / Small games / AI-assisted creation</p>
+              </div>
+
+              <div class="flex gap-4 mt-6 justify-center md:justify-start">
+                <a href="#" class="social-btn b1" title="Bilibili"><i class="ri-bilibili-fill text-xl"></i></a>
+                <a href="#" class="social-btn b2" title="GitHub"><i class="ri-github-fill text-xl"></i></a>
+                <a href="#" class="social-btn b4" title="抖音"><i class="ri-tiktok-fill text-xl"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 设计抽屉 -->
+  <div class="mask" id="mask"></div>
+  <aside class="drawer" id="designDrawer">
+    <div class="p-6">
+      <div class="flex justify-between items-center">
+        <h3 class="font-black text-lg" data-i18n="designDetail">Design Details</h3>
+        <button onclick="closeDesignDrawer()" class="social-btn" style="width:42px;height:42px;font-size:20px"><i
+            class="ri-close-line"></i></button>
+      </div>
+
+      <div class="cover g-blue rounded-2xl mt-5 paper" style="height:240px">
+        <div class="pin" style="top:-10px;left:30px"></div>
+        <div class="tape blue" style="top:14px;right:20px;transform:rotate(4deg)">DETAIL</div>
+      </div>
+
+      <h4 class="font-black text-xl mt-5">Visual Poster Design</h4>
+      <p class="text-sm mt-2" style="color:var(--soft)" data-i18n="designDesc">Fresh healing poster built on dopamine
+        color palette and rounded graphic language.</p>
+
+      <div class="flex flex-wrap gap-2 mt-5">
+        <span class="tag">Visual Design</span>
+        <span class="tag">Poster</span>
+        <span class="tag">Color</span>
+      </div>
+
+      <div class="workflow mt-6">
+        <h5 class="font-black">Design Workflow</h5>
+        <div class="step"><span class="dot">1</span>Requirement<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">2</span>Reference<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">3</span>Sketch<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">4</span>Line & Color<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">5</span>Layout<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">6</span>Export</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 关于我侧边抽屉 -->
+  <aside class="drawer" id="aboutDrawer">
+    <div class="p-6">
+      <div class="flex justify-between items-center">
+        <h3 class="font-black text-lg" data-i18n="aboutDrawerTitle">About Me</h3>
+        <button onclick="closeAboutDrawer()" class="social-btn" style="width:42px;height:42px;font-size:20px"><i
+            class="ri-close-line"></i></button>
+      </div>
+
+      <div class="cover g-pink rounded-2xl mt-5 paper" style="height:240px">
+        <div class="pin" style="top:-10px;left:30px"></div>
+        <div class="tape pink" style="top:14px;right:20px;transform:rotate(4deg)">ME</div>
+        <div class="stamp" style="top:40px;left:20px">HELLO</div>
+        <div class="emoji-sticker" style="bottom:20px;right:20px;transform:rotate(-8deg)">🖼️</div>
+      </div>
+
+      <h4 class="font-black text-xl mt-5" data-i18n="basicInfo">Basic Info</h4>
+      <p class="text-sm mt-2" style="color:var(--soft)" data-i18n="introText">
+        Independent creator & indie game developer, focusing on animation, visual design and lightweight interactive
+        prototypes. I love turning complex ideas into cute, clear and playable works.
+      </p>
+
+      <div class="mt-5 space-y-2 text-sm font-bold">
+        <p data-i18n="location">📍 Location: Remote</p>
+        <p data-i18n="status">💼 Status: Open for collaboration & project discussion</p>
+        <p data-i18n="direction">🎯 Focus: Original content / Small games / AI-assisted creation</p>
+      </div>
+
+      <h5 class="font-black mt-6" data-i18n="otherAccounts">Other Accounts</h5>
+      <div class="flex gap-4 mt-4">
+        <a href="#" class="social-btn b1" title="Bilibili"><i class="ri-bilibili-fill text-xl"></i></a>
+        <a href="#" class="social-btn b2" title="GitHub"><i class="ri-github-fill text-xl"></i></a>
+        <a href="#" class="social-btn b4" title="抖音"><i class="ri-tiktok-fill text-xl"></i></a>
+      </div>
+
+      <div class="workflow mt-6">
+        <h5 class="font-black">Personal Workflow</h5>
+        <div class="step"><span class="dot">1</span>Idea<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">2</span>Sketch / Prototype<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">3</span>Asset<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">4</span>AI Iteration<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">5</span>Test & Tune<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">6</span>Publish</div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- 动画详情页 -->
+  <section class="detail-page" id="aniPage">
+    <div class="max-w-4xl mx-auto px-6 py-24">
+      <button class="back-btn" onclick="closeAniPage()" data-i18n="backToWorks">← Back to Works</button>
+
+      <div class="mt-8 reveal">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag">🎬 Animation</span>
+          <span class="tag">2D</span>
+          <span class="tag">Narrative Short</span>
+        </div>
+        <h2 class="text-4xl font-black">Original Animation Short #01</h2>
+        <p class="mt-4" style="color:var(--soft)" data-i18n="aniDesc">A 2D narrative short about dreams and encounters,
+          focusing on motion, transition rhythm and emotion.</p>
+      </div>
+
+      <div class="cover g-pink rounded-3xl mt-10 reveal paper"
+        style="height:420px;display:flex;align-items:center;justify-content:center">
+        <div class="pin" style="top:-10px;left:40px"></div>
+        <div class="tape" style="top:18px;right:30px;transform:rotate(5deg)">PLAY</div>
+        <div class="play-btn"><i class="ri-play-fill"></i></div>
+      </div>
+
+      <div class="workflow mt-10 reveal">
+        <h5 class="font-black text-lg">Animation Workflow</h5>
+        <div class="step"><span class="dot">1</span>Script<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">2</span>Storyboard<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">3</span>Keyframe<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">4</span>Inbetween<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">5</span>Comp & FX<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">6</span>Grade & Export</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 游戏详情页 -->
+  <section class="detail-page" id="gamePage">
+    <div class="max-w-4xl mx-auto px-6 py-24">
+      <button class="back-btn" onclick="closeGamePage()" data-i18n="backToWorks">← Back to Works</button>
+
+      <div class="mt-8 reveal">
+        <div class="flex flex-wrap gap-2 mb-4">
+          <span class="tag">🎮 Game</span>
+          <span class="tag">Indie Game</span>
+          <span class="tag">AI Assisted</span>
+        </div>
+        <h2 class="text-4xl font-black">Indie Game Demo</h2>
+        <p class="mt-4" style="color:var(--soft)" data-i18n="gameDesc">Light healing game prototype built around
+          character movement, scene interaction and AI asset pipeline.</p>
+      </div>
+
+      <div class="cover g-mint rounded-3xl mt-10 reveal paper"
+        style="height:420px;display:flex;align-items:center;justify-content:center">
+        <div class="pin" style="top:-10px;right:40px"></div>
+        <div class="tape mint" style="top:16px;left:30px;transform:rotate(-4deg)">DEMO</div>
+        <div class="play-btn"><i class="ri-play-fill"></i></div>
+      </div>
+
+      <!-- 游戏工作流 -->
+      <div class="workflow mt-10 reveal">
+        <h5 class="font-black text-lg">Game Workflow</h5>
+        <div class="step"><span class="dot">1</span>Concept & Core Loop<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">2</span>Playable Prototype<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">3</span>AI Asset Generation<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">4</span>Scene & Level Build<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">5</span>Playtest & Tune<span class="arrow">→</span></div>
+        <div class="step"><span class="dot">6</span>Build & Export</div>
+      </div>
+    </div>
+  </section>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
